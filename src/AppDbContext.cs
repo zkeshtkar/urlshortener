@@ -16,7 +16,8 @@ namespace UrlShortener
         {
             base.OnModelCreating(builder);
             builder.Entity<Url>().ToTable("url");
-             builder.Entity<Url>().HasKey(p => p.LongUrl);
+             builder.Entity<Url>().HasKey(p => p.ShortUrl);
+            builder.Entity<Url>().Property(p => p.LongUrl).IsRequired();
             builder.Entity<Url>().Property(p => p.ShortUrl).IsRequired();
         
         }

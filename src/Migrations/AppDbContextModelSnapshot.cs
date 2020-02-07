@@ -20,14 +20,14 @@ namespace UrlShortener.Migrations
 
             modelBuilder.Entity("UrlShortener.Models.Url", b =>
                 {
-                    b.Property<string>("LongUrl")
+                    b.Property<string>("ShortUrl")
                         .HasColumnType("text");
 
-                    b.Property<string>("ShortUrl")
+                    b.Property<string>("LongUrl")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("LongUrl");
+                    b.HasKey("ShortUrl");
 
                     b.ToTable("url");
                 });

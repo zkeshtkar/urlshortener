@@ -9,8 +9,8 @@ using UrlShortener;
 namespace UrlShortener.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200206112823_zahra2")]
-    partial class zahra2
+    [Migration("20200206143002_migration.AppDbContext")]
+    partial class migrationAppDbContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,14 +22,14 @@ namespace UrlShortener.Migrations
 
             modelBuilder.Entity("UrlShortener.Models.Url", b =>
                 {
-                    b.Property<string>("LongUrl")
+                    b.Property<string>("ShortUrl")
                         .HasColumnType("text");
 
-                    b.Property<string>("ShortUrl")
+                    b.Property<string>("LongUrl")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("LongUrl");
+                    b.HasKey("ShortUrl");
 
                     b.ToTable("url");
                 });

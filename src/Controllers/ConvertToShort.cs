@@ -8,11 +8,11 @@ using UrlShortener.Models;
 namespace UrlShortener.Controllers
 {
 
-    [Route("/save")]
+    [Route("save")]
     [ApiController]
-    public class ConvertToShort : ControllerBase
+    public class ConvertToShort : Controller
     {
-         char[] alphabets  ="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+         
          private readonly AppDbContext _appDbContext;
          public ConvertToShort(AppDbContext app)
          {
@@ -21,13 +21,21 @@ namespace UrlShortener.Controllers
         
 
         [HttpPost]
-        public ActionResult Post([FromBody]Url url)
+        public ActionResult<string> Post([FromBody]Url url)
         {
-        
-             url.ShortUrl = url.LongUrl + "short";
+            var alphabets  ="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var random=new Random();
+           do
+            {
+            url.ShortUrl ="";
+             for(int i=0;i<8;i++)
+             {
+                 url.ShortUrl+=alphabets[random.Next(42)];
+             }
+            }while(_appDbContext.Find(url.GetType(),url.ShortUrl)  !=null);
          _appDbContext.urls.Add(url);
-            _appDbContext.SaveChanges();
-             return Ok(); 
+        _appDbContext.SaveChanges();
+             return url.ShortUrl; 
         }
         [HttpGet]
         public ActionResult Get()

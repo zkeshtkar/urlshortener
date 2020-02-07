@@ -2,7 +2,7 @@
 
 namespace UrlShortener.Migrations
 {
-    public partial class UrlShortenerAppDbContext : Migration
+    public partial class migrationAppDbContext : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,12 +10,12 @@ namespace UrlShortener.Migrations
                 name: "url",
                 columns: table => new
                 {
-                    LongUrl = table.Column<string>(nullable: false),
-                    ShortUrl = table.Column<string>(maxLength: 8, nullable: false)
+                    ShortUrl = table.Column<string>(nullable: false),
+                    LongUrl = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_url", x => x.LongUrl);
+                    table.PrimaryKey("PK_url", x => x.ShortUrl);
                 });
         }
 
