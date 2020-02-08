@@ -5745,11 +5745,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/zahra/Pictures/UrlShortener/src/UrlShortener.csproj",
+      "projectUniqueName": "/home/zahra/Pictures/urlshortener/src/UrlShortener.csproj",
       "projectName": "UrlShortener",
-      "projectPath": "/home/zahra/Pictures/UrlShortener/src/UrlShortener.csproj",
+      "projectPath": "/home/zahra/Pictures/urlshortener/src/UrlShortener.csproj",
       "packagesPath": "/home/zahra/.nuget/packages/",
-      "outputPath": "/home/zahra/Pictures/UrlShortener/src/obj/",
+      "outputPath": "/home/zahra/Pictures/urlshortener/src/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/zahra/.nuget/NuGet/NuGet.Config"
