@@ -8,12 +8,24 @@ using UrlShortener.Models;
 namespace UrlShortener.Controllers
 {
 
-    [Route("save")]
+    [Route("converting")]
     [ApiController]
     public class ConvertToShort : Controller
     {
+     private readonly AppDbContext _appDbContext;
+    public bool IsNotValid(string url)
+    {
+        Uri validatedUri;
+
+        if (Uri.TryCreate(url, UriKind.Absolute, out validatedUri)) 
+        {
+            return !(validatedUri.Scheme == Uri.UriSchemeHttp || validatedUri.Scheme == Uri.UriSchemeHttps);
+        }
+        return true;
+    }
+        
          
-         private readonly AppDbContext _appDbContext;
+        
          public ConvertToShort(AppDbContext app)
          {
              _appDbContext=app;
@@ -21,36 +33,44 @@ namespace UrlShortener.Controllers
         
 
         [HttpPost]
-        public ActionResult<string> Post([FromBody]Url url)
+        public ActionResult Post([FromBody]Url url)
         {
             var alphabets  ="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
             var random=new Random();
-           do
+            
+            if(IsNotValid(url.LongUrl))
             {
-            url.ShortUrl ="";
+                 return BadRequest();
+            }
+            else
+            {
+                 do
+            {
+            url.ShortUrl = "";
              for(int i=0;i<8;i++)
              {
                  url.ShortUrl+=alphabets[random.Next(42)];
              }
             }while(_appDbContext.Find(url.GetType(),url.ShortUrl)  !=null);
-         _appDbContext.urls.Add(url);
-        _appDbContext.SaveChanges();
-             return url.ShortUrl; 
-        }
-        [HttpGet]
-        public ActionResult Get()
-        {
+            _appDbContext.urls.Add(url);
             
-            return Ok();
+            _appDbContext.SaveChanges();
+
+            Response r=new Response(url.ShortUrl);
+            
+            return Ok(r);
+            }
+        }
+        
+    }
+    
+    class Response
+    {
+        public string ShortUrl{get;set;}
+        public Response(string shortUrl)
+        {
+            this.ShortUrl=shortUrl;
         }
     }
    
-    class ResponseExample
-    {
-        public string response{get;set;}
-        public ResponseExample(string response)
-        {
-            this.response=response;
-        }
-    }
 }
