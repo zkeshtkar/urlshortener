@@ -1,6 +1,6 @@
 # urlshortener
 
-"Url Shortener" is URL shortening service and a link management platform
+`Url Shortener` is URL shortening service and a link management platform
 ### Creating Database
 
 this comments are useful for creating dataBase in your project :
@@ -32,12 +32,12 @@ You can write this comments in your terminal for runnig your project :
  
 ### Usage
 
-1.If you want to make short your url , you can use this comment :
+1. If you want to make short your url , you can use this comment :
 ```
     curl -X POST -H "Content-Type: application/json" -d '{"LongUrl": "your url","ShortUrl":""}' http://localhost:5000/urls
   
 ```
-2.And if you want to redirec to the url by short url ,use this comment :
+2. And if you want to redirec to the url by short url ,use this comment :
 ```
    curl -i http://localhost:5000/Your Route name/shortUrl
  
